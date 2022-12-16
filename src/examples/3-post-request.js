@@ -1,15 +1,26 @@
-import { useState } from 'react';
-import axios from 'axios';
-const url = 'https://course-api.com/axios-tutorial-post';
+import { useState } from 'react'
+import axios from 'axios'
+const url = 'https://course-api.com/axios-tutorial-post'
 
+//! send data to the server
+//! axios.post(url, {data}) // Reference to the HTTP post method
+//! more options (auth header) - axios.post(url,{data},{}) --> if we need to add more info about request for example authorization header, we will pass the third argument.
+
+//! We are not gonna save the user in a database but if we provide both values we will get back succesfull response however if one them is missing then we will get back error response
 const PostRequest = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(name, email);
-  };
+    e.preventDefault()
+    try {
+      // const resp = await axios.post(url, { name: name, email: email })
+      const resp = await axios.post(url, { name, email }) //! ES6 shorthand
+      console.log(resp.data)
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
 
   return (
     <section>
@@ -44,6 +55,6 @@ const PostRequest = () => {
         </button>
       </form>
     </section>
-  );
-};
-export default PostRequest;
+  )
+}
+export default PostRequest
